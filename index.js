@@ -16,7 +16,13 @@ app.post("/", function (req, res) {
     
     // console.log(req.body.crypto);
 
-    request("https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD", function(error, response, body) {
+    var myKey = {
+        header: {
+            'x-ba-key': 'Nzg2ZGFkOGZjMmQ5NDZmNjlkMjM2MDE2OTkxMjAwN2E'
+        }
+    };
+    
+    request("https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD", myKey, function(error, response, body) {
         console.log(body);
     });
 

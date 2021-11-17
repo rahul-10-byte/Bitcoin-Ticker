@@ -14,16 +14,19 @@ app.get("/", function(req,  res){
 
 app.post("/", function (req, res) {
     
-    // console.log(req.body.crypto);
+    console.log(req.body.crypto);
 
-    var myKey = {
-        header: {
-            'x-ba-key': 'Nzg2ZGFkOGZjMmQ5NDZmNjlkMjM2MDE2OTkxMjAwN2E'
-        }
-    };
     
-    request("https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD", myKey, function(error, response, body) {
-        console.log(body);
+
+    var baseURL = "https://api.nomics.com/v1/currencies/ticker?key=ae62b83e138193bccc72a9ab6a13719864c3b678&ids=BTC&interval=1d&convert=USD&per-page=100&page=1";
+
+    request(baseURL, function(error, response, body) {
+        
+        var data = JSON.parse(body);
+        var price = data[0].price;
+        console.log(Number(price));
+        res.send("<h1>The price of the Bitcoin is " + price + " USD</h1>");
+
     });
 
 });

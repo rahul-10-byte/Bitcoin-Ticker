@@ -16,8 +16,8 @@ app.post("/", function (req, res) {
     
     console.log(req.body.crypto);
 
-    // var crypto = req.body.crypto;
-    // var fiat = req.body.fiat;
+    var crypto = req.body.crypto;
+    var fiat = req.body.fiat;
 
     var baseURL = "https://api.nomics.com/v1/currencies/ticker?key=ae62b83e138193bccc72a9ab6a13719864c3b678";
     var coin = "&ids=" + crypto;
@@ -31,9 +31,15 @@ app.post("/", function (req, res) {
         
         var data = JSON.parse(body);
         var price = data[0].price;
-        console.log(Number(price));
-        res.send("<h1>The price of the " + crypto + " is " + price +" " + fiat + " </h1>");
+        var  currentDate = data[0].price_timestamp;
 
+        console.log(Number(price), fiat);
+        console.log(currentDate);
+
+        res.write("<p>The current date is " + currentDate + "</p>");
+        res.write("<h1>The price of the " + crypto + " is " + price +" " + fiat + " </h1>");
+
+        res.send();
     });
 
 });
